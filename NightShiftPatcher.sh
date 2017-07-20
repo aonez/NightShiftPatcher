@@ -17,7 +17,7 @@ cd "${0%/*}"
 clear
 
 echo
-echo -e "${WHITE}NightShiftPatcher by aONe ® 2017 (https://github.com/aonez)${NC}"
+echo -e "${WHITE}NightShiftPatcher by aONe ® 2017 (https://github.com/aonez/NightShiftPatcher)${NC}"
 echo -e "${DARKGRAY}Original idea by ${WHITE}Pike${DARKGRAY} (https://pikeralpha.wordpress.com/2017/01/30/4398)${NC}"
 echo -e "${DARKGRAY}Based on ${WHITE}NightPatch${DARKGRAY} (https://github.com/pookjw/NightPatch)${NC}"
 echo
@@ -44,13 +44,12 @@ CHECK="$(xxd -s $OFFSET -c 24 -l 24 $CORETEMP)"
 echo -e "${ORANGE}Replaced hex: ${GREEN}$CHECK${NC}"
 
 echo 'Creating a backup...'
-cp $CORE /Users/aone/Desktop/core.bak
+cp $CORE $HOME/Desktop/CoreBrightness.bak
 
 echo 'Replacing CoreBrightness with patched one...'
 mv $CORETEMP $CORE
 
 echo 'Resigning kext...'
-
 sudo codesign -f -s - $CORE
 
 echo
