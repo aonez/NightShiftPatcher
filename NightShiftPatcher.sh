@@ -19,7 +19,7 @@ clear
 echo
 echo -e "${WHITE}NightShiftPatcher by aONe ® 2017 (https://github.com/aonez/NightShiftPatcher)${NC}"
 echo -e "${DARKGRAY}Original idea by ${WHITE}Pike${DARKGRAY} (https://pikeralpha.wordpress.com/2017/01/30/4398)${NC}"
-echo -e "${DARKGRAY}Based on ${WHITE}NightPatch${DARKGRAY} (https://github.com/pookjw/NightPatch)${NC}"
+echo -e "${DARKGRAY}Motivated by ${WHITE}NightPatch${DARKGRAY} (https://github.com/pookjw/NightPatch)${NC}"
 echo
 echo
 
