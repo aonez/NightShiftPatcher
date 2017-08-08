@@ -23,6 +23,12 @@ echo -e "${DARKGRAY}Motivated by ${WHITE}NightPatch${DARKGRAY} (https://github.c
 echo
 echo
 
+if [ $EUID != 0 ]; then
+    echo "This script needs elevated privileges..."
+    sudo "$0" "$@"
+    exit $?
+fi
+
 echo "Cloning CoreBrightness..."
 CORETEMP=$CORE.temp
 cp $CORE $CORE.temp
