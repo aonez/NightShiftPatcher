@@ -34,7 +34,7 @@ CORETEMP=$CORE.temp
 cp $CORE $CORE.temp
 
 echo 'Looking for minimum requirements check offset...'
-OFFSETRAW="$(nm $CORETEMP | grep _ModelMinVersion | cut -d' ' -f 1 | sed -e 's/^0*//g'| head -1)"
+OFFSETRAW="$(nm $CORETEMP | grep _ModelMinVersion | cut -d' ' -f 1 | sed -e 's/^0*//g' | head -1)"
 OFFSET="0x$OFFSETRAW"
 echo -e "${ORANGE}Offset: ${GREEN}$OFFSET${NC}"
 
