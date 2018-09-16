@@ -24,6 +24,15 @@ echo -e "Original idea by ${ORANGE}Pike${NC} (https://pikeralpha.wordpress.com/2
 echo -e "Motivated by ${ORANGE}NightPatch${NC} (https://github.com/pookjw/NightPatch)\n\n${NC}"
 
 echo "Checking for requirements..."
+
+SIPSTATUS="$(csrutil status)"
+if [[ $SIPSTATUS == *'enabled'* ]]; then
+	echo -e "${ORANGE}\nSIP needs to be disabled. Restart in rescue mode and disable it with \"csrutil disable\"\n${NC}"
+	exit 1
+elif [[ $SIPSTATUS == *'disabled'* ]]; then
+	echo -e "${GREEN}SIP is disabled${NC}"
+fi
+
 function check_nm_xcode {
 	NMOUTPUT="$(nm -help  2>&1)"
 	if [[ $NMOUTPUT == 'xcode-select: note: no developer tools were found'* ]]; then
