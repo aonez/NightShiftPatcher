@@ -26,16 +26,16 @@ echo -e "Motivated by ${ORANGE}NightPatch${NC} (https://github.com/pookjw/NightP
 echo "Checking for requirements..."
 function check_nm_xcode {
 	NMOUTPUT="$(nm -help  2>&1)"
-	if [[ $NMOUTPUT == "xcode-select: note: no developer tools were found"* ]]; then
+	if [[ $NMOUTPUT == 'xcode-select: note: no developer tools were found'* ]]; then
 		return 1
 	else
 		return 0
 	fi
 }
 if check_nm_xcode; then
-	echo -e "${GREEN}nm ok${NC}"
+	echo -e "${GREEN}nm is functional${NC}"
 else
-	echo -e -n "${ORANGE}Install the Command Line Developer Tools when prompted to continue${NC}"
+	echo -e "${ORANGE}Install the Command Line Developer Tools when prompted to continue${NC}"
 	while ! check_nm_xcode
 	do
 		echo -n '.'
@@ -45,7 +45,7 @@ else
 fi
 
 if [ ${EUID} != 0 ]; then
-    echo 'This script needs elevated privileges...'
+    echo -e "${ORANGE}\nThis script needs elevated privileges...${NC}"
     sudo "$0" "$@"
     exit $?
 fi
@@ -79,8 +79,7 @@ mv "${CORETEMP}" "${CORE}"
 echo 'Resigning kext...'
 sudo codesign -f -s - "${CORE}"
 
-echo
-echo
-echo -e "${GREEN}All done now :)${NC}"
-echo
+
+echo -e "\n\n${GREEN}All done now :)\n${NC}"
+
 exit
