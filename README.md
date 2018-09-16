@@ -1,8 +1,9 @@
 ### NightShiftPatcher
 
-#####Enable Night Shift on unsupported machines.
+***Enable Night Shift on unsupported machines.***
 
 Original idea by [Pike](https://pikeralpha.wordpress.com/2017/01/30/4398)
+
 Motivated by [NightPatch](https://github.com/pookjw/NightPatch)
 
 #### Contributions
