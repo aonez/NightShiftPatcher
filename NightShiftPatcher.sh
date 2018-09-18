@@ -27,7 +27,7 @@ echo "Checking for requirements..."
 
 SIPSTATUS="$(csrutil status)"
 if [[ $SIPSTATUS == *'enabled'* ]]; then
-	echo -e "${ORANGE}\nSIP needs to be disabled. Restart in rescue mode and disable it with \"csrutil disable\"\n${NC}"
+	echo -e "${RED}\nSIP needs to be disabled. Restart in rescue mode and disable it with \"csrutil disable\"\n${NC}"
 	exit 1
 elif [[ $SIPSTATUS == *'disabled'* ]]; then
 	echo -e "${GREEN}SIP is disabled${NC}"
@@ -42,7 +42,7 @@ function check_nm_xcode {
 	fi
 }
 if check_nm_xcode; then
-	echo -e "${GREEN}nm is functional${NC}"
+	echo -e "${GREEN}Binary nm is functional${NC}"
 else
 	echo -e "${ORANGE}Install the Command Line Developer Tools when prompted to continue${NC}"
 	while ! check_nm_xcode
@@ -68,19 +68,45 @@ echo 'Getting offset hex data...'
 OFFSETDATARAW="$(xxd -s ${OFFSET} -c 24 -l 24 "${CORE}")"
 echo -e "${ORANGE}Original hex: ${GREEN}${OFFSETDATARAW}${NC}"
 
-echo 'Creating a backup...'
-cp -R "${FRAMEWORK}" "${FRAMEWORK}.bak"
+echo 'Cloning the framework...'
+FRAMEWORKHACK="${FRAMEWORK}.hack"
+echo ${FRAMEWORKHACK}
+if [ -d "${FRAMEWORKHACK}" ]; then
+	rm -R "${FRAMEWORKHACK}"
+fi
+cp -R "${FRAMEWORK}" "${FRAMEWORKHACK}"
+COREHACK="${FRAMEWORKHACK}/Versions/A/CoreBrightness"
+
+echo ${COREHACK}
 
 echo 'Replacing offset hex data...'
-printf "\x01\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00" | dd count=24 bs=1 seek=$((${OFFSET})) of="${CORE}" conv=notrunc > /dev/null 
+printf "\x01\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00" | dd count=24 bs=1 seek=$((${OFFSET})) of="${COREHACK}" conv=notrunc > /dev/null 
 
 echo 'Checking offset hex replaced...'
-CHECK="$(xxd -s ${OFFSET} -c 24 -l 24 "${CORE}")"
+CHECK="$(xxd -s ${OFFSET} -c 24 -l 24 "${COREHACK}")"
 echo -e "${ORANGE}Replaced hex: ${GREEN}${CHECK}${NC}"
 
-echo 'Resigning kext...'
-sudo codesign -f -s - "${CORE}"
+echo 'Resigning the framework...'
+sudo codesign -f -s - "${FRAMEWORKHACK}"
 
+echo 'Checking new signature...'
+SIGNCHECK="$(codesign --verify --deep --verbose=2 --strict "${FRAMEWORKHACK}" 2>&1 >/dev/null)"
+if [[ ${SIGNCHECK} = *"valid on disk"*"satisfies its Designated Requirement"* ]]; then
+	echo -e "${GREEN}New signature checked${NC}"
+else
+	rm -R "${FRAMEWORKHACK}"
+	echo -e "${RED}\nThe new signature is invalid or can't be applied. Check the original framework sigature is valid and try again. No patch applied.\n${ORANGE}${SIGNCHECK}\n\n${NC}"
+	exit
+fi
+
+echo "Creating a backup at \"${FRAMEWORK}.bak\"..."
+if [ -d "${FRAMEWORK}.bak" ]; then
+	rm -R "${FRAMEWORK}.bak"
+fi
+mv "${FRAMEWORK}" "${FRAMEWORK}.bak"
+
+echo "Using the patched version..."
+mv "${FRAMEWORKHACK}" "${FRAMEWORK}"
 
 echo -e "\n\n${GREEN}All done now :)\n${NC}"
 
