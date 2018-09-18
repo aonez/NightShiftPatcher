@@ -59,31 +59,24 @@ if [ ${EUID} != 0 ]; then
     exit $?
 fi
 
-echo 'Cloning CoreBrightness...'
-CORETEMP="${CORE}.temp"
-cp "${CORE}" "${CORETEMP}"
-
 echo 'Looking for minimum requirements check offset...'
-OFFSETRAW="$(nm "${CORETEMP}" | grep _ModelMinVersion | cut -d' ' -f 1 | sed -e 's/^0*//g' | head -1)"
+OFFSETRAW="$(nm "${CORE}" | grep _ModelMinVersion | cut -d' ' -f 1 | sed -e 's/^0*//g' | head -1)"
 OFFSET="0x${OFFSETRAW}"
 echo -e "${ORANGE}Offset: ${GREEN}${OFFSET}${NC}"
 
 echo 'Getting offset hex data...'
-OFFSETDATARAW="$(xxd -s ${OFFSET} -c 24 -l 24 "${CORETEMP}")"
+OFFSETDATARAW="$(xxd -s ${OFFSET} -c 24 -l 24 "${CORE}")"
 echo -e "${ORANGE}Original hex: ${GREEN}${OFFSETDATARAW}${NC}"
-
-echo 'Replacing offset hex data...'
-printf "\x01\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00" | dd count=24 bs=1 seek=$((${OFFSET})) of="${CORETEMP}" conv=notrunc > /dev/null 
-
-echo 'Checking offset hex replaced...'
-CHECK="$(xxd -s ${OFFSET} -c 24 -l 24 "${CORETEMP}")"
-echo -e "${ORANGE}Replaced hex: ${GREEN}${CHECK}${NC}"
 
 echo 'Creating a backup...'
 cp -R "${FRAMEWORK}" "${FRAMEWORK}.bak"
 
-echo 'Replacing CoreBrightness with patched one...'
-mv "${CORETEMP}" "${CORE}"
+echo 'Replacing offset hex data...'
+printf "\x01\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00" | dd count=24 bs=1 seek=$((${OFFSET})) of="${CORE}" conv=notrunc > /dev/null 
+
+echo 'Checking offset hex replaced...'
+CHECK="$(xxd -s ${OFFSET} -c 24 -l 24 "${CORE}")"
+echo -e "${ORANGE}Replaced hex: ${GREEN}${CHECK}${NC}"
 
 echo 'Resigning kext...'
 sudo codesign -f -s - "${CORE}"
