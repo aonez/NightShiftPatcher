@@ -16,4 +16,11 @@ Motivated by [NightPatch](https://github.com/pookjw/NightPatch)
 2. Execute ***NightShiftPatcher.sh*** script with superuser privileges (using [sudo](https://en.wikipedia.org/wiki/Sudo), for example)
 3. Don't forget to reenable SIP. This is not required, but recommended for system security ;)
 
+## In case of error
+
+If after applying the patch it does not work, restart in single user mode or with the rescue partition and use the backup:
+```
+/System/Library/PrivateFrameworks/CoreBrightness.framework.bak
+
+
 
