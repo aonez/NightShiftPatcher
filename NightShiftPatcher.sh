@@ -106,6 +106,11 @@ echo 'Getting offset hex data...'
 OFFSETDATARAW="$(xxd -s ${OFFSET} -c 24 -l 24 "${CORE}")"
 echo -e "${ORANGE}Original hex: ${GREEN}${OFFSETDATARAW}${NC}"
 
+if [[ $OFFSETDATARAW == *'0100 0000 0100 0000 0100 0000 0100 0000 0100 0000 0100 0000'* ]]; then
+	echo -e "${ORANGE}\nThe patch is already applied on \"${FRAMEWORK}\". Nothing to do here.\n${NC}"
+	exit 2
+fi
+
 echo 'Cloning the framework...'
 FRAMEWORKHACK="${FRAMEWORK}.hack"
 echo ${FRAMEWORKHACK}
