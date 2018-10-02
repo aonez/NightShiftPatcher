@@ -43,7 +43,7 @@ Motivated by [NightPatch](https://github.com/pookjw/NightPatch)
 - To restore the backup with the terminal, you can use this terminal line:
 
   ```sh
-  sudo f='/System/Library/PrivateFrameworks/CoreBrightness.framework'; mv "${f}" "${f}.hack"; mv "${f}.bak" "${f}";
+  sudo -s; f='/System/Library/PrivateFrameworks/CoreBrightness.framework'; mv "${f}" "${f}.hack"; mv "${f}.bak" "${f}"; exit;
   ```
 
 
