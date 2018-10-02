@@ -36,8 +36,7 @@ Motivated by [NightPatch](https://github.com/pookjw/NightPatch)
 - If you used an old `NightShiftPatcher` script (before September 2018), first remove those files from the backup:
 
   ```sh
-  sudo rm '/System/Library/PrivateFrameworks/CoreBrightness.framework.bak/Versions/Current/CoreBrightness.temp'
-  sudo rm '/System/Library/PrivateFrameworks/CoreBrightness.framework.bak/Versions/Current/CoreBrightness.tbd'
+  sudo -s; f='/System/Library/PrivateFrameworks/CoreBrightness.framework.bak/Versions/Current/CoreBrightness'; rm "${f}.temp"; rm "${f}.tbd"; exit;
   ```
 
 - To restore the backup with the terminal, you can use this terminal line:
