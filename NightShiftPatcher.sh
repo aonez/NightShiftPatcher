@@ -63,6 +63,11 @@ fi
 echo 'Looking for minimum requirements check offset...'
 OFFSETRAW="$(nm "${CORE}" | grep _ModelMinVersion | cut -d' ' -f 1 | sed -e 's/^0*//g' | head -1)"
 OFFSET="0x${OFFSETRAW}"
+
+if [ -z ${OFFSETRAW} ]; then
+	echo -e "${RED}Can't find the offset to patch, get in contact with the developer. No patch applied.${NC}"
+	exit 1
+fi
 echo -e "${ORANGE}Offset: ${GREEN}${OFFSET}${NC}"
 
 echo 'Getting offset hex data...'
