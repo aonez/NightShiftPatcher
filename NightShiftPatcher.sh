@@ -13,6 +13,7 @@ cd "${0%/*}"
 clear
 
 FRAMEWORK='/System/Library/PrivateFrameworks/CoreBrightness.framework'
+FRAMEWORKBAK="${FRAMEWORK}.bak"
 if [[ $1 == "-t" ]]; then
 	FRAMEWORK='CoreBrightness.framework'
 	echo -e "${RED}Running test on script's nearby $FRAMEWORK...${NC}"
@@ -99,11 +100,11 @@ else
 	exit
 fi
 
-echo "Creating a backup at \"${FRAMEWORK}.bak\"..."
-if [ -d "${FRAMEWORK}.bak" ]; then
-	rm -R "${FRAMEWORK}.bak"
+echo "Creating a backup at \"${FRAMEWORKBAK}\"..."
+if [ -d "${FRAMEWORKBAK}" ]; then
+	rm -R "${FRAMEWORKBAK}"
 fi
-mv "${FRAMEWORK}" "${FRAMEWORK}.bak"
+mv "${FRAMEWORK}" "${FRAMEWORKBAK}"
 
 echo "Using the patched version..."
 mv "${FRAMEWORKHACK}" "${FRAMEWORK}"
