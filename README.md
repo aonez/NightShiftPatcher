@@ -18,7 +18,7 @@ Motivated by [NightPatch](https://github.com/pookjw/NightPatch)
 
 ## In case of error
 
-- If the system does not properly boot, restart in [single-user mode](https://support.apple.com/en-bh/HT201573) or with the [recovery partition](https://support.apple.com/en-us/HT201314). 
+- If the system does not boot, restart in [single-user mode](https://support.apple.com/en-bh/HT201573) or with the [recovery partition](https://support.apple.com/en-us/HT201314). 
 
 - The backup file can be found here:
 
@@ -26,13 +26,13 @@ Motivated by [NightPatch](https://github.com/pookjw/NightPatch)
   /System/Library/PrivateFrameworks/CoreBrightness.framework.bak
   ```
 
-- If you used an old (before September 2018) `NightShiftPatcher` script, first remove this file from the backup:
+- If you used an old `NightShiftPatcher` script (before September 2018), first remove this file from the backup:
 
   ```sh
   rm '/System/Library/PrivateFrameworks/CoreBrightness.framework.bak/Versions/Current/CoreBrightness.temp'
   ```
 
-- To restore the backup with the terminal, use this terminal line:
+- To restore the backup with the terminal, you can use this terminal line:
 
   ```sh
   f='/System/Library/PrivateFrameworks/CoreBrightness.framework'; mv "${f}" "${f}.hack"; mv "${f}.bak" "${f}";
