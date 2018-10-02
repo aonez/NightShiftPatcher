@@ -12,9 +12,10 @@ Motivated by [NightPatch](https://github.com/pookjw/NightPatch)
 
 ## How to use
 
-1. Disable [SIP](https://developer.apple.com/library/content/documentation/Security/Conceptual/System_Integrity_Protection_Guide/ConfiguringSystemIntegrityProtection/ConfiguringSystemIntegrityProtection.html)[*](https://en.wikipedia.org/wiki/System_Integrity_Protection)
-2. Execute ***NightShiftPatcher.sh*** script with superuser privileges (using [sudo](https://en.wikipedia.org/wiki/Sudo), for example)
-3. Don't forget to reenable SIP. This is not required, but recommended for system security ;)
+1. Download the latest stable script from the [Releases](https://github.com/aonez/NightShiftPatcher/releases) section
+2. Disable [SIP](https://developer.apple.com/library/content/documentation/Security/Conceptual/System_Integrity_Protection_Guide/ConfiguringSystemIntegrityProtection/ConfiguringSystemIntegrityProtection.html)[*](https://en.wikipedia.org/wiki/System_Integrity_Protection)
+3. Execute ***NightShiftPatcher.sh*** script with superuser privileges (using [sudo](https://en.wikipedia.org/wiki/Sudo), for example)
+4. Don't forget to reenable SIP. This is not required, but recommended for system security ;)
 
 ## In case of error
 
