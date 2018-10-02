@@ -20,6 +20,12 @@ Motivated by [NightPatch](https://github.com/pookjw/NightPatch)
 
 - If the system does not boot, restart in [single-user mode](https://support.apple.com/en-bh/HT201573) or with the [recovery partition](https://support.apple.com/en-us/HT201314). 
 
+- You can restore the backup using the `NightShiftPatcher` script since `1.0` version with the `-r` option:
+
+  ```sh
+  ./NightShiftPatcher.sh -r
+  ```
+
 - The backup file can be found here:
 
   ```sh
