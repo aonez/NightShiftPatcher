@@ -13,7 +13,7 @@ cd "${0%/*}"
 clear
 
 FRAMEWORK='/System/Library/PrivateFrameworks/CoreBrightness.framework'
-if [ $1 == "-t" ]; then
+if [[ $1 == "-t" ]]; then
 	FRAMEWORK='CoreBrightness.framework'
 	echo -e "${RED}Running test on script's nearby $FRAMEWORK...${NC}"
 fi
