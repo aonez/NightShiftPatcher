@@ -102,7 +102,7 @@ if [[ ${SIGNCHECK} = *"valid on disk"*"satisfies its Designated Requirement"* ]]
 else
 	rm -R "${FRAMEWORKHACK}"
 	echo -e "${RED}\nThe new signature is invalid or can't be applied. Check the original framework sigature is valid and try again. No patch applied.\n${ORANGE}${SIGNCHECK}\n\n${NC}"
-	exit
+	exit 1
 fi
 
 echo "Creating a backup at \"${FRAMEWORKBAK}\"..."
@@ -116,4 +116,4 @@ mv "${FRAMEWORKHACK}" "${FRAMEWORK}"
 
 echo -e "\n\n${GREEN}All done now :)\n${NC}"
 
-exit
+exit 0
