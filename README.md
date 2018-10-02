@@ -19,8 +19,24 @@ Motivated by [NightPatch](https://github.com/pookjw/NightPatch)
 ## In case of error
 
 If after applying the patch it does not work, restart in single user mode or with the rescue partition and use the backup:
-```
-/System/Library/PrivateFrameworks/CoreBrightness.framework.bak
+
+- The backup file can be found here:
+
+  ```sh
+  /System/Library/PrivateFrameworks/CoreBrightness.framework.bak
+  ```
+
+- If you used an old `NightShiftPatcher` script, first remove this file from the backup:
+
+  ```sh
+  rm '/System/Library/PrivateFrameworks/CoreBrightness.framework.bak/Versions/Current/CoreBrightness.temp'
+  ```
+
+- To restore the backup with the terminal, use this terminal line:
+
+  ```sh
+  f='/System/Library/PrivateFrameworks/CoreBrightness.framework'; mv "${f}" "${f}.hack"; mv "${f}.bak" "${f}";
+  ```
 
 
 
