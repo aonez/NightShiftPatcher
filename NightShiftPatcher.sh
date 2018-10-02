@@ -20,7 +20,7 @@ if [[ $1 == "-t" ]]; then
 fi
 CORE="${FRAMEWORK}/Versions/A/CoreBrightness"
 
-echo -e "${ORANGE}\nNightShiftPatcher 1.0 by aONe ® 2017-2018 (https://github.com/aonez/NightShiftPatcher)${NC}"
+echo -e "${ORANGE}\nNightShiftPatcher 1.0.0 by aONe ® 2017-2018 (https://github.com/aonez/NightShiftPatcher)${NC}"
 echo -e "Original idea by ${ORANGE}Pike${NC} (https://pikeralpha.wordpress.com/2017/01/30/4398)${NC}"
 echo -e "Motivated by ${ORANGE}NightPatch${NC} (https://github.com/pookjw/NightPatch)\n${NC}"
 
