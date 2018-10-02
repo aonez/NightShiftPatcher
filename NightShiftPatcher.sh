@@ -36,12 +36,17 @@ fi
 
 function check_nm_xcode {
 	NMOUTPUT="$(nm -help  2>&1)"
-	if [[ $NMOUTPUT == 'xcode-select: note: no developer tools were found'* ]]; then
+	NMCHECK=$?
+	if [ $NMCHECK -eq 0 ]; then
+		return 0
+	elif [[ $NMOUTPUT == 'xcode-select: note: no developer tools were found'* ]]; then
 		return 1
 	else
-		return 0
+		xcode-select --install
+		return 1
 	fi
 }
+
 if check_nm_xcode; then
 	echo -e "${GREEN}Binary nm is functional${NC}"
 else
