@@ -22,7 +22,40 @@ CORE="${FRAMEWORK}/Versions/A/CoreBrightness"
 
 echo -e "${ORANGE}\nNightShiftPatcher by aONe ® 2017 (https://github.com/aonez/NightShiftPatcher)${NC}"
 echo -e "Original idea by ${ORANGE}Pike${NC} (https://pikeralpha.wordpress.com/2017/01/30/4398)${NC}"
-echo -e "Motivated by ${ORANGE}NightPatch${NC} (https://github.com/pookjw/NightPatch)\n\n${NC}"
+echo -e "Motivated by ${ORANGE}NightPatch${NC} (https://github.com/pookjw/NightPatch)\n${NC}"
+
+if [ ${EUID} != 0 ]; then
+    echo -e "${ORANGE}\nThis script needs elevated privileges...${NC}"
+    sudo "$0" "$@"
+    exit $?
+fi
+
+if [[ $1 == "-r" ]] || [[ $2 == "-r" ]]; then
+	echo 'Restoring the backup...'
+	if [ ! -d "${FRAMEWORKBAK}" ]; then
+		echo -e "${RED}The backup can't be found at ${FRAMEWORKBAK}${NC}"
+		exit 1
+	fi
+	if [ -f "${FRAMEWORKBAK}/Versions/Current/CoreBrightness.temp" ]; then
+		echo -e "${ORANGE}Removing obsolete file \"CoreBrightness.temp\" from the backup...${NC}"
+		rm "${FRAMEWORKBAK}/Versions/Current/CoreBrightness.temp"
+	fi
+	if [ -f "${FRAMEWORKBAK}/Versions/Current/CoreBrightness.tbd" ]; then
+		echo -e "${ORANGE}Removing obsolete file \"CoreBrightness.tbd\" from the backup...${NC}"
+		rm "${FRAMEWORKBAK}/Versions/Current/CoreBrightness.tbd"
+	fi
+	
+	sudo mv "${FRAMEWORK}" "${FRAMEWORK}.hack";
+	mv "${FRAMEWORKBAK}" "${FRAMEWORK}";
+	
+	if [ -d "${FRAMEWORK}" ]; then
+		rm -R "${FRAMEWORK}.hack"
+		echo -e "${GREEN}The backup is now restored. Restart your system now :)${NC}"
+	else
+		echo -e "${RED}The backup might be not restored. Do it manually.${NC}"
+	fi
+	exit 0
+fi
 
 echo "Checking for requirements..."
 
@@ -57,12 +90,6 @@ else
 		sleep 2
 	done
 	echo
-fi
-
-if [ ${EUID} != 0 ]; then
-    echo -e "${ORANGE}\nThis script needs elevated privileges...${NC}"
-    sudo "$0" "$@"
-    exit $?
 fi
 
 echo 'Looking for minimum requirements check offset...'
