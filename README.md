@@ -18,7 +18,7 @@ Motivated by [NightPatch](https://github.com/pookjw/NightPatch)
 
 ## In case of error
 
-If after applying the patch it does not work, restart in single user mode or with the rescue partition and use the backup:
+- If the system does not properly boot, restart in [single-user mode](https://support.apple.com/en-bh/HT201573) or with the [recovery partition](https://support.apple.com/en-us/HT201314). 
 
 - The backup file can be found here:
 
@@ -26,7 +26,7 @@ If after applying the patch it does not work, restart in single user mode or wit
   /System/Library/PrivateFrameworks/CoreBrightness.framework.bak
   ```
 
-- If you used an old `NightShiftPatcher` script, first remove this file from the backup:
+- If you used an old (before September 2018) `NightShiftPatcher` script, first remove this file from the backup:
 
   ```sh
   rm '/System/Library/PrivateFrameworks/CoreBrightness.framework.bak/Versions/Current/CoreBrightness.temp'
