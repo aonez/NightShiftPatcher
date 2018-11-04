@@ -111,6 +111,15 @@ if [[ $OFFSETDATARAW == *'0100 0000 0100 0000 0100 0000 0100 0000 0100 0000 0100
 	exit 2
 fi
 
+if [ -f "${FRAMEWORK}/Versions/Current/CoreBrightness.temp" ]; then
+	echo -e "${ORANGE}Removing obsolete file \"CoreBrightness.temp\" from the backup...${NC}"
+	rm "${FRAMEWORK}/Versions/Current/CoreBrightness.temp"
+fi
+if [ -f "${FRAMEWORK}/Versions/Current/CoreBrightness.tbd" ]; then
+	echo -e "${ORANGE}Removing obsolete file \"CoreBrightness.tbd\" from the backup...${NC}"
+	rm "${FRAMEWORK}/Versions/Current/CoreBrightness.tbd"
+fi
+
 echo 'Cloning the framework...'
 FRAMEWORKHACK="${FRAMEWORK}.hack"
 echo ${FRAMEWORKHACK}
